@@ -6,32 +6,36 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.twogether.app.core.result.Result
 import com.twogether.app.domain.model.User
 import com.twogether.app.domain.repository.AuthRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
 ) : AuthRepository {
 
-    override fun signInWithGoogle(idToken: String): Result<User> {
-        return try {
-            val credential = GoogleAuthProvider.getCredential(idToken, "")
-            val result = Tasks.await(auth.signInWithCredential(credential))
-            val user = result.user
-                ?: return Result.Error(IllegalStateException("No user in sign-in result"))
-            Result.Success(
-                User(
-                    uid = user.uid,
-                    displayName = user.displayName,
-                    photoUrl = user.photoUrl?.toString(),
-                    coupleId = null,
-                    timezone = null,
+    override suspend fun signInWithGoogle(idToken: String): Result<User> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val credential = GoogleAuthProvider.getCredential(idToken, "")
+                val result = Tasks.await(auth.signInWithCredential(credential))
+                val user = result.user
+                    ?: return@withContext Result.Error(IllegalStateException("No user in sign-in result"))
+                Result.Success(
+                    User(
+                        uid = user.uid,
+                        displayName = user.displayName,
+                        photoUrl = user.photoUrl?.toString(),
+                        coupleId = null,
+                        timezone = null,
+                    )
                 )
-            )
-        } catch (e: Exception) {
-            Result.Error(e)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
         }
     }
 

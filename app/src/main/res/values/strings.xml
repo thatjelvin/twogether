@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Twogether</string>
-    <string name="default_web_client_id" translatable="false">PLACEHOLDER</string>
+    <string name="default_web_client_id" translatable="false">787903553579-aaq4rq9tbpgjpk4rr41dhthas7h3j1im.apps.googleusercontent.com</string>
     <string name="tab_today">Today</string>
     <string name="tab_together">Together</string>
     <string name="tab_play">Play</string>

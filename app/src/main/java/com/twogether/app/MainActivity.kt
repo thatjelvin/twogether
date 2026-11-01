@@ -64,12 +64,15 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun handleSignInResult(task: Task<GoogleSignInAccount>?) {
-        val account = task?.result ?: run {
+        val account = if (task != null && task.isSuccessful) {
+            task.result
+        } else {
             authViewModel.handleSignInResult(
                 Result.Error(IllegalStateException("Sign-in was cancelled or failed"))
             )
             return
         }
+
         val idToken = account.idToken ?: run {
             authViewModel.handleSignInResult(
                 Result.Error(IllegalStateException("No id token"))

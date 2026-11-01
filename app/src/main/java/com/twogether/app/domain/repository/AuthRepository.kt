@@ -5,7 +5,7 @@ import com.twogether.app.domain.model.User
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
-    fun signInWithGoogle(idToken: String): Result<User>
+    suspend fun signInWithGoogle(idToken: String): Result<User>
     fun signOut(): Result<Unit>
     val currentUser: Flow<User?>
 }
