@@ -1,0 +1,9 @@
+com.twogether.app-pngs-0 C:\Users\hp\Desktop\twogether\app\build\generated\res\pngs\debug
+com.twogether.app-res-1 C:\Users\hp\Desktop\twogether\app\build\generated\res\processDebugGoogleServices
+com.twogether.app-updated_navigation_xml-2 C:\Users\hp\Desktop\twogether\app\build\generated\updated_navigation_xml\debug
+com.twogether.app-packageDebugResources-3 C:\Users\hp\Desktop\twogether\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.twogether.app-packageDebugResources-4 C:\Users\hp\Desktop\twogether\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.twogether.app-debug-5 C:\Users\hp\Desktop\twogether\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.twogether.app-debug-6 C:\Users\hp\Desktop\twogether\app\src\debug\res
+com.twogether.app-main-7 C:\Users\hp\Desktop\twogether\app\src\main\res
+gradleHome-0 C:\Users\hp\.gradle
