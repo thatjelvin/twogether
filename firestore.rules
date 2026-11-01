@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function inCouple(coupleId) {
+      return request.auth != null &&
+        request.auth.uid in get(/databases/$(db)/documents/couples/$(coupleId)).data.memberIds;
+    }
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+    match /couples/{coupleId} {
+      allow read: if inCouple(coupleId);
+      allow write: if false;
+      match /days/{d} {
+        allow read: if inCouple(coupleId);
+        allow write: if false;
+      }
+      match /days/{d}/completions/{uid} {
+        allow read: if inCouple(coupleId);
+        allow write: if inCouple(coupleId) && request.auth.uid == uid;
+      }
+      match /prayers/{p} {
+        allow read, create: if inCouple(coupleId);
+        allow update: if inCouple(coupleId);
+      }
+      match /goals/{g}/{document=**} {
+        allow read, write: if inCouple(coupleId);
+      }
+      match /puzzles/{p} {
+        allow read: if inCouple(coupleId);
+        allow write: if false;
+      }
+      match /sessions/{s} {
+        allow read, write: if false;
+      }
+    }
+  }
+}

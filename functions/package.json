@@ -1,0 +1,25 @@
+{
+  "name": "twogether-functions",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloud Functions for Twogether (phase: M3+)",
+  "engines": {
+    "node": "22"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "serve": "npm run build && firebase emulators:start --only functions,firestore,auth",
+    "deploy": "firebase deploy --only functions",
+    "test": "npm run build && mocha lib/**/*.test.js --exit"
+  },
+  "dependencies": {
+    "firebase-admin": "^14.5.0",
+    "firebase-functions": "^7.4.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.4.0",
+    "typescript": "^5.9.3",
+    "@types/node": "^22.20.5"
+  }
+}
